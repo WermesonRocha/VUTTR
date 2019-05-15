@@ -15,8 +15,18 @@ public class ToolsService {
 	private ToolsRepository toolsRepository;
 	
 	
-	public List<Tools> getAppUsers() {
+	public List<Tools> getAllTools() {
 		return toolsRepository.findAll();
+	}
+
+
+	public List<Tools> getToolsWithTag(String tag) {
+		return toolsRepository.findByTagsName(tag);
+	}
+
+
+	public Tools addTool(Tools tool) {
+		return toolsRepository.save(tool);
 	}
 
 }
