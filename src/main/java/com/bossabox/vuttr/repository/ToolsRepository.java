@@ -8,5 +8,7 @@ import com.bossabox.vuttr.entity.Tools;
 
 public interface ToolsRepository extends CrudRepository<Tools, Integer> {
 	List<Tools> findAll();
+	
+	List<Tools> findByTagsName(String tag);
 
 }
