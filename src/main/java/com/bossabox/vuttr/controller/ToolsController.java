@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,8 +32,17 @@ public class ToolsController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Tools> addTool(@RequestBody Tools tool) {
+	public ResponseEntity<Tools> add(@RequestBody Tools tool) {
 		return new ResponseEntity<Tools>(toolsService.addTool(tool), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Tools> delete(@PathVariable("id") int id) {
+		if (toolsService.getTool(id) != null) {
+			toolsService.deleteTool(id);
+			return new ResponseEntity<Tools>(HttpStatus.OK);
+		}
+		return new ResponseEntity<Tools>(HttpStatus.BAD_REQUEST);
 	}
 
 }
